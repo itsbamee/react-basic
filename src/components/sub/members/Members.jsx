@@ -1,7 +1,9 @@
+import Layout from '../../common/layout/Layout';
+
 export default function Members() {
 	return (
-		<>
-			<h1>members</h1>
-		</>
+		<Layout title={'Members'}>
+			<p>members list</p>
+		</Layout>
 	);
 }
