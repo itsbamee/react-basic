@@ -1,43 +1,42 @@
 import Layout from '../../common/layout/Layout';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import './Department.scss';
 
 export default function Department() {
 	console.log('re-render');
+	//만약, 리액트에서 state 변경이 일어나면 컴포넌트는 재랜더링 됨
+	//바뀐 state값은 다음번 렌더링 사이클 시 변경된 값이 적용됨 (중요) 그래서 초깃값..0부터 시작함..
+	//화면의 정보값을 갱신해야되는 중요한 변경사항이 아닌 요소를 State로 변경하면 계속해서 컴포넌트가 재렌더링 되므로 비효율적
+	//대표적인 사례 : 단순한 모션처리를 위한 state적용
+	const rotate = useRef(0);
+	let [Num, setNum] = useState(0);
+	const minus = () => {
+		setNum(--Num);
+		console.log(rotate);
+	};
+	const plus = () => {
+		setNum(++Num);
+		console.log(rotate);
+	};
 
-	//리액트 컴포넌트는 무조건 state에 담겨있는 값만 변화점을 인지해서 컴포넌트를 재호출하면서 화면갱신, 공식 [값, set값]
-	//useState는 2개의 값이 담겨있는 배열을 반환
-	//첫번째 값은 인수에 전달된 값을 초기값으로 활용한 State값
-	//두번째 값은 해당 State를 변경할 수 있는 State 변경전용 함수, 무조건 State는 전용함수로만 변경가능
-	//const [State값, State 변경함수] = useState(초기값);
-
-	const [Num, setNum] = useState(0);
-
-	// console.log(Num);
-	// console.log(setNum);
 	return (
 		<Layout title={'Department'}>
-			<button onClick={() => setNum(Num + 1)}>plus</button>
-			<button onClick={() => setNum(Num - 1)}>minus</button>
-			<h2>{Num}</h2>
+			<button onClick={plus}>left</button>
+			<button onClick={minus}>right</button>
+
+			<article style={{ transform: `rotate(${45 * Num}deg)` }}></article>
 		</Layout>
 	);
 }
 
 /*
-	리액트 대표적인 hook 3대장
-	1. useState
-		- 화면 렌더링을 담당하는 중요 데이터를 관리해주는 그릇
-		- 화면의 모든 변경사항은 State에 담아서 관리 및 렌더링
-		- State값이 변경이 되면 REACT는 무조건 컴포넌트를 재호출해서 화면을 다시 랜더링
+	useRef : 특정값을 담기위한 참조객체를 만드는 hook
+	[특징]
+	- useRef를 통한 참조객체에 담겨있는 값은 컴포넌트가 재호출되더라도 값이 초기화되지 않고 유지가 됨
+	- useRef를 통한 참조객체의 값이 변경되더라도 컴포넌트를 재호출하지 않음
+	- useRef를 통한 참조객체의 값이 변경되면 그 값은 해당 렌더링 사이클에서 바로 적용됨
 
-	2. useEffect
-		- 어떤 컴포넌트의 생명주기 관리 (Life Cycle)
-		- 컴포넌트의 생성 (Mount)
-		- 컴포넌트의 변경 (State Change)
-		- 컴포넌트의 소멸 (UnMount)
-		- 컴포넌트의 생성 변경, 소멸 시 특정 이벤트에 호출해야할 때 주로 사용
-
-	3. useRef
-		- 컴포넌트가 재호출 되더라도 변경되거나 사라지면 안되는 값을 담는 그릇
-		- 메모리상에만 존재하는 최신 가상돔을 선택해야될 때 담는 용도
+	[useRef를 사용하는 실사례]
+	1. 가상돔요소를 선택해서 제어해야 될 때
+	2. 특정 값을 변경처리 할 때 불필요하게 컴포넌트를 재호출하고 싶지 않을 때
 */

@@ -7,7 +7,7 @@ export default function Layout({ children, title }) {
 	// newClass = newClass.split(' ');
 	// newClass = newClass.join('_');
 	// newClass = newClass.split(' ').join('_');
-	console.log(newClass);
+	// console.log(newClass);
 	return (
 		<section className={`layout ${newClass}`}>
 			<h1>{title}</h1>
