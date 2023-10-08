@@ -7,4 +7,19 @@
 	align-items: center;
 	font: 30px/1 'arial';
 	color: #fff;
+
+	button {
+		outline: none;
+		background: #ddd;
+		margin-right: 10px;
+		border-radius: 0.3rem;
+		border: none;
+		padding: 5px;
+		cursor: pointer;
+	}
+
+	h1 {
+		font: 0.5rem;
+		color: #fff;
+	}
 }
