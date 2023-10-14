@@ -17,17 +17,34 @@ export default function Department() {
 	const [Title, setTitle] = useState('');
 	const [Department, setDepartment] = useState([]);
 
-	useEffect(() => {
-		fetch(`${path}/DB/department.json`)
+	const fetchData = (url, setValue, setKey) => {
+		fetch(url)
 			.then((data) => data.json())
 			.then((json) => {
-				setTitle(Object.keys(json)[0]);
-				setDepartment(Object.values(json)[0]);
+				setKey && setKey(Object.keys(json)[0]);
+				setValue(Object.values(json)[0]);
 			});
+	};
+
+	useEffect(() => {
+		fetchData(`${path}/DB/Department.json`, setDepartment, setTitle);
 	}, []);
 
 	return (
 		<Layout title={'Department'}>
+			<section id='historyBox'>
+				{Department.map((history, idx) => {
+					return (
+						<article>
+							<h3></h3>
+							<ul>
+								<li></li>
+							</ul>
+						</article>
+					);
+				})}
+			</section>
+
 			<section id='memberBox'>
 				<h2>{Title.charAt(0).toUpperCase() + Title.slice(1)}</h2>
 
