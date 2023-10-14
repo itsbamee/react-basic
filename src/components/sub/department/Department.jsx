@@ -1,6 +1,7 @@
 import Layout from '../../common/layout/Layout';
 import { useEffect, useState } from 'react';
 import './Department.scss';
+import { useFetch } from '../../../hooks/useFetch';
 
 /*
 	React에서 외부 데이터 fetching 작업 흐름 (공식으로 외워라)
@@ -16,15 +17,7 @@ const path = process.env.PUBLIC_URL;
 export default function Department() {
 	const [Title, setTitle] = useState('');
 	const [Department, setDepartment] = useState([]);
-
-	const fetchData = (url, setValue, setKey) => {
-		fetch(url)
-			.then((data) => data.json())
-			.then((json) => {
-				setKey && setKey(Object.keys(json)[0]);
-				setValue(Object.values(json)[0]);
-			});
-	};
+	const fetchData = useFetch();
 
 	useEffect(() => {
 		fetchData(`${path}/DB/Department.json`, setDepartment, setTitle);
