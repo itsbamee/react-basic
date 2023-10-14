@@ -1,5 +1,5 @@
 import Layout from '../../common/layout/Layout';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Department.scss';
 import { useFetch } from '../../../hooks/useFetch';
 
@@ -17,23 +17,27 @@ const path = process.env.PUBLIC_URL;
 export default function Department() {
 	const [Title, setTitle] = useState('');
 	const [Department, setDepartment] = useState([]);
+	const [History, setHistory] = useState([]);
 	const fetchData = useFetch();
 
 	useEffect(() => {
 		fetchData(`${path}/DB/Department.json`, setDepartment, setTitle);
+		fetchData(`${path}/DB/history.json`, setHistory);
 	}, []);
 
 	return (
 		<Layout title={'Department'}>
 			<section id='historyBox'>
-				{Department.map((history, idx) => {
+				{History.map((data, idx) => {
 					return (
-						<article>
-							<h3></h3>
+						<React.Fragment key={idx}>
+							<h2>{Object.keys(data)[0]}</h2>
 							<ul>
-								<li></li>
+								{Object.values(data)[0].map((val, idx) => {
+									return <li key={idx}>{val}</li>;
+								})}
 							</ul>
-						</article>
+						</React.Fragment>
 					);
 				})}
 			</section>
