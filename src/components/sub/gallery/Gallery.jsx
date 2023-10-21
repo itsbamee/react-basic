@@ -3,21 +3,25 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Youtube() {
-	const [Vids, setVids] = useState([]);
+	const [Pics, setPics] = useState([]);
 
-	useEffect(() => {
+	const fetchFlicker = async () => {
 		const api_key = 'AIzaSyDC60bIIkAJFzy7ji4a0Eo3AX6tYudhe1w';
 		const pid = 'PLYOPkdUKSFgWqafuDQN9di3uLJoTV3L3W';
 		const num = 10;
 		const baseURL = `https://www.googleapis.com/youtube/v3/playlistItems?key=${api_key}&part=snippet&playlistId=${pid}&maxResults=${num}`;
-		fetch(baseURL)
-			.then((data) => data.json())
-			.then((json) => setVids(json.items));
+		const data = await fetch(baseURL);
+		const json = data.json();
+		setPics(json.photos.photo);
+	};
+
+	useEffect(() => {
+		fetchFlicker();
 	}, []);
 
 	return (
 		<Layout title={'Youtube'}>
-			{Vids.map((data, idx) => {
+			{Pics.map((data, idx) => {
 				return (
 					<article key={idx}>
 						<h2>{data.snippet.title}</h2>
