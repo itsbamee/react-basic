@@ -5,7 +5,7 @@ export default function Header() {
 	return (
 		<header>
 			<h1>
-				<Link to='/'>Positive Vibes</Link>
+				<Link to='/'>Positive Bamee</Link>
 			</h1>
 
 			<ul>
