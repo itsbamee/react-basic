@@ -7,7 +7,7 @@ function Detail() {
 
 	const { id } = useParams();
 	useEffect(() => {
-		const api_key = 'PLUwR8EXytHn1Ze8uW6n00p_h8bukV_ONy';
+		const api_key = 'AIzaSyCwQIBLMeQByu6IwpnmeMdhWy8SWfIaZDI';
 		const baseURL = `https://www.googleapis.com/youtube/v3/playlistItems?key=${api_key}&part=snippet&id=${id}`;
 		//fetchData(baseURL, setVids);
 
