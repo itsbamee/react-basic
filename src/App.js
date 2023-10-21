@@ -9,10 +9,11 @@ import Youtube from './components/sub/youtube/Youtube';
 import Detail from './components/sub/youtube/Detail';
 import './styles/Global.scss';
 import { Route } from 'react-router-dom';
+import { useMedia } from './hooks/useMedia';
 
 function App() {
 	return (
-		<>
+		<main className={useMedia()}>
 			<Header />
 
 			<Route exact path='/' component={Visual} />
@@ -24,7 +25,7 @@ function App() {
 			{/* 특정 URL 라우터 설정시 유튜브 고유 아이디값을 params로 전달 */}
 			<Route path='/detail/:id' component={Detail} />
 			<Footer />
-		</>
+		</main>
 	);
 }
 
