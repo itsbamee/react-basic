@@ -31,7 +31,8 @@
 					background: #333;
 					transition: 0.5s;
 				}
-				&:hover {
+				&:hover,
+				&.on {
 					color: #000;
 
 					&::after {

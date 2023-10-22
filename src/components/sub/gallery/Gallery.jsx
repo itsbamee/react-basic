@@ -1,10 +1,11 @@
 import Layout from '../../common/layout/Layout';
 import './Gallery.scss';
 import Masonry from 'react-masonry-component';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Gallery() {
 	const [Pics, setPics] = useState([]);
+	const refElBtnSet = useRef(null);
 	const myId = '199361154@N05';
 
 	const fetchFlickr = async (opt) => {
@@ -25,6 +26,22 @@ export default function Gallery() {
 		setPics(json.photos.photo);
 	};
 
+	const activateBtn = (e) => {
+		const btns = refElBtnSet.current.querySelectorAll('button');
+		btns.forEach((btn) => btn.classList.remove('on'));
+		e.target.classList.add('on');
+	};
+
+	const handleClickInterest = (e) => {
+		activateBtn(e);
+		fetchFlickr({ type: 'interest' });
+	};
+
+	const handleClickMine = (e) => {
+		activateBtn(e);
+		fetchFlickr({ type: 'user', id: myId });
+	};
+
 	useEffect(() => {
 		fetchFlickr({ type: 'user', id: myId });
 	}, []);
@@ -32,9 +49,11 @@ export default function Gallery() {
 	return (
 		<Layout title={'Gallery'}>
 			<article className='controls'>
-				<nav className='btnSet'>
-					<button onClick={() => fetchFlickr({ type: 'interest' })}>Interest Gallery</button>
-					<button onClick={() => fetchFlickr({ type: 'user', id: myId })}>My Gallery</button>
+				<nav className='btnSet' ref={refElBtnSet}>
+					<button onClick={handleClickInterest}>Interest Gallery</button>
+					<button className='on' onClick={handleClickMine}>
+						My Gallery
+					</button>
 				</nav>
 			</article>
 
