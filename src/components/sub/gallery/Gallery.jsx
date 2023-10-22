@@ -3,6 +3,14 @@ import './Gallery.scss';
 import Masonry from 'react-masonry-component';
 import { useState, useEffect } from 'react';
 
+/*
+	react component에 masonry ui 적용 방법
+	1. npi i react-masonry-component 설치
+	2. 기존의 레이아웃을 flaot 형태로 배치 (사이간격 주고싶을 때는 padding값 활용)
+	3. 각 카드 컴포넌트를 import된 masonry 컴포넌트로 wrapping처리
+	4. masonry 컴포넌트 옵션값 설정 (아래 코드 참조) 
+*/
+
 export default function Gallery() {
 	const [Pics, setPics] = useState([]);
 	console.log(Pics);
