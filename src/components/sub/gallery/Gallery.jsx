@@ -3,14 +3,6 @@ import './Gallery.scss';
 import Masonry from 'react-masonry-component';
 import { useState, useEffect } from 'react';
 
-/*
-	react component에 masonry ui 적용 방법
-	1. npi i react-masonry-component 설치
-	2. 기존의 레이아웃을 flaot 형태로 배치 (사이간격 주고싶을 때는 padding값 활용)
-	3. 각 카드 컴포넌트를 import된 masonry 컴포넌트로 wrapping처리
-	4. masonry 컴포넌트 옵션값 설정 (아래 코드 참조) 
-*/
-
 export default function Gallery() {
 	const [Pics, setPics] = useState([]);
 	console.log(Pics);
@@ -18,10 +10,14 @@ export default function Gallery() {
 	const fetchFlickr = async () => {
 		const baseURL = 'https://www.flickr.com/services/rest/?format=json&nojsoncallback=1';
 		const key = process.env.REACT_APP_FLICKER_KEY;
+		const myId = '199361154@N05';
 		const method_interest = 'flickr.interestingness.getList';
+		const method_user = 'flickr.people.getPhotos';
 		const num = 40;
-		const url = `${baseURL}&api_key=${key}&method=${method_interest}&per_page=${num}`;
-		const data = await fetch(url);
+		const url_interest = `${baseURL}&api_key=${key}&method=${method_interest}&per_page=${num}`;
+		const url_user = `${baseURL}&api_key=${key}&method=${method_user}&per_page=${num}&user_id=${myId}`;
+
+		const data = await fetch(url_user);
 		const json = await data.json();
 		setPics(json.photos.photo);
 	};
@@ -39,11 +35,15 @@ export default function Gallery() {
 							<article key={idx}>
 								<div className='inner'>
 									<div className='pic'>
-										<img src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_m.jpg`} alt={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_b.jpg`} />
+										<img src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_w.jpg`} alt={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_b.jpg`} />
 									</div>
 									<h2>{pic.title}</h2>
 									<div className='profile'>
-										<img src={`http://farm${pic.farm}.staticflickr.com/${pic.server}/buddyicons/${pic.owner}.jpg`} alt='' />
+										<img
+											src={`http://farm${pic.farm}.staticflickr.com/${pic.server}/buddyicons/${pic.owner}.jpg`}
+											alt={pic.owner}
+											onError={(e) => e.target.setAttribute('src', 'https://www.flickr.com/images/buddyicon.gif')}
+										/>
 										<span>{pic.owner}</span>
 									</div>
 								</div>
