@@ -5,29 +5,39 @@ import { useState, useEffect } from 'react';
 
 export default function Gallery() {
 	const [Pics, setPics] = useState([]);
-	console.log(Pics);
+	const myId = '199361154@N05';
 
-	const fetchFlickr = async () => {
+	const fetchFlickr = async (opt) => {
 		const baseURL = 'https://www.flickr.com/services/rest/?format=json&nojsoncallback=1';
 		const key = process.env.REACT_APP_FLICKER_KEY;
-		const myId = '199361154@N05';
 		const method_interest = 'flickr.interestingness.getList';
 		const method_user = 'flickr.people.getPhotos';
 		const num = 40;
+		let url = '';
 		const url_interest = `${baseURL}&api_key=${key}&method=${method_interest}&per_page=${num}`;
-		const url_user = `${baseURL}&api_key=${key}&method=${method_user}&per_page=${num}&user_id=${myId}`;
+		const url_user = `${baseURL}&api_key=${key}&method=${method_user}&per_page=${num}&user_id=${opt.id}`;
 
-		const data = await fetch(url_user);
+		opt.type === 'user' && (url = url_user);
+		opt.type === 'interest' && (url = url_interest);
+
+		const data = await fetch(url);
 		const json = await data.json();
 		setPics(json.photos.photo);
 	};
 
 	useEffect(() => {
-		fetchFlickr();
+		fetchFlickr({ type: 'user', id: myId });
 	}, []);
 
 	return (
 		<Layout title={'Gallery'}>
+			<article className='controls'>
+				<nav className='btnSet'>
+					<button onClick={() => fetchFlickr({ type: 'interest' })}>Interest Gallery</button>
+					<button onClick={() => fetchFlickr({ type: 'user', id: myId })}>My Gallery</button>
+				</nav>
+			</article>
+
 			<div className='frame'>
 				<Masonry elementType={'div'} options={{ transitionDuration: '0.5s' }} disableImagesLoaded={false} updateOnEachImageLoad={false}>
 					{Pics.map((pic, idx) => {
@@ -44,7 +54,7 @@ export default function Gallery() {
 											alt={pic.owner}
 											onError={(e) => e.target.setAttribute('src', 'https://www.flickr.com/images/buddyicon.gif')}
 										/>
-										<span>{pic.owner}</span>
+										<span onClick={(e) => fetchFlickr({ type: 'user', id: e.target.innerText })}>{pic.owner}</span>
 									</div>
 								</div>
 							</article>
