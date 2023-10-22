@@ -9,6 +9,7 @@ export default function Gallery() {
 	const myId = '199361154@N05';
 
 	const fetchFlickr = async (opt) => {
+		console.log('fetching again...');
 		const baseURL = 'https://www.flickr.com/services/rest/?format=json&nojsoncallback=1';
 		const key = process.env.REACT_APP_FLICKER_KEY;
 		const method_interest = 'flickr.interestingness.getList';
@@ -33,11 +34,13 @@ export default function Gallery() {
 	};
 
 	const handleClickInterest = (e) => {
+		if (e.target.classList.contains('on')) return;
 		activateBtn(e);
 		fetchFlickr({ type: 'interest' });
 	};
 
 	const handleClickMine = (e) => {
+		if (e.target.classList.contains('on')) return;
 		activateBtn(e);
 		fetchFlickr({ type: 'user', id: myId });
 	};
