@@ -1,37 +1,49 @@
 .gallery {
 	.frame {
 		width: 100%;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
+		&::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
 
 		article {
-			width: 23%;
-			margin-bottom: 60px;
-			border-bottom: 1px solid #ccc;
+			width: 25%;
+			float: left;
+			padding: 15px;
 
-			.pic {
+			.inner {
 				width: 100%;
-				margin-bottom: 10px;
+				border-bottom: 1px solid #ccc;
 
-				img {
+				.pic {
 					width: 100%;
+					margin-bottom: 10px;
+
+					img {
+						width: 100%;
+					}
 				}
-			}
-			h2 {
-				font-weight: normal;
-				font-size: 1rem;
-				line-height: 1.2;
-				margin-bottom: 10px;
-			}
-			.profile {
-				width: 100%;
-				display: flex;
-				align-items: flex-end;
-				margin-bottom: 20px;
-				gap: 10px;
-				img {
-					width: 40px;
+				h2 {
+					font-weight: normal;
+					font-size: 1rem;
+					line-height: 1.2;
+					margin-bottom: 10px;
+				}
+				.profile {
+					width: 100%;
+					display: flex;
+					align-items: flex-end;
+					margin-bottom: 20px;
+					gap: 10px;
+					img {
+						width: 40px;
+					}
+					span {
+						font-size: 0.7rem;
+						color: orangered;
+						cursor: pointer;
+					}
 				}
 			}
 		}
@@ -40,24 +52,30 @@
 
 .laptop {
 	.gallery {
-		article {
-			width: 32%;
+		.frame {
+			article {
+				width: 32%;
+			}
 		}
 	}
 }
 
 .tablet {
 	.gallery {
-		article {
-			width: 48%;
+		.frame {
+			article {
+				width: 48%;
+			}
 		}
 	}
 }
 
 .mobile {
 	.gallery {
-		article {
-			width: 100%;
+		.frame {
+			article {
+				width: 100%;
+			}
 		}
 	}
 }
