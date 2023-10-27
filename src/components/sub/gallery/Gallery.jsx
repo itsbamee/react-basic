@@ -42,7 +42,7 @@ export default function Gallery() {
 	};
 
 	const handleClickMine = (e) => {
-		if (e.target.classList.contains('on') || IsUser) return;
+		if (e.target.classList.contains('on') && IsUser) return;
 		setIsUser(true);
 		activateBtn(e);
 		fetchFlickr({ type: 'user', id: myId });
