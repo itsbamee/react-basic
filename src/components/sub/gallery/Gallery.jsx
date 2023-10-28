@@ -6,12 +6,12 @@ import { LuSearch } from 'react-icons/lu';
 import Modal from '../../common/modal/Modal';
 
 export default function Gallery() {
-	const [Pics, setPics] = useState([]);
-	const [IsUser, setIsUser] = useState(true);
-	let [CurrentType, setCurrentType] = useState('mine');
-	const [IsOpen, setIsOpen] = useState(false);
-	const refElBtnSet = useRef(null);
 	const myId = '199361154@N05';
+	const [Pics, setPics] = useState([]);
+	let [IsUser, setIsUser] = useState(myId);
+	let [CurrentType, setCurrentType] = useState('mine');
+	let [IsOpen, setIsOpen] = useState(false);
+	const refElBtnSet = useRef(null);
 	const refElInput = useRef(null);
 
 	const fetchFlickr = async (opt) => {
@@ -83,6 +83,10 @@ export default function Gallery() {
 		setCurrentType('search');
 	};
 
+	const handleModal = (e) => {
+		setIsOpen(true);
+	};
+
 	useEffect(() => {
 		fetchFlickr({ type: 'user', id: myId });
 		//fetchFlickr({ type: 'search', keyword: 'landscape' });
@@ -113,7 +117,7 @@ export default function Gallery() {
 							return (
 								<article key={idx}>
 									<div className='inner'>
-										<div className='pic'>
+										<div className='pic' onClick={handleModal}>
 											<img src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_w.jpg`} alt={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_b.jpg`} />
 										</div>
 										<h2>{pic.title}</h2>
