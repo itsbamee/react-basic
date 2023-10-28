@@ -9,6 +9,7 @@ export default function Gallery() {
 	const [Pics, setPics] = useState([]);
 	const [IsUser, setIsUser] = useState(true);
 	let [CurrentType, setCurrentType] = useState('mine');
+	const [IsOpen, setIsOpen] = useState(false);
 	const refElBtnSet = useRef(null);
 	const myId = '199361154@N05';
 	const refElInput = useRef(null);
@@ -88,7 +89,7 @@ export default function Gallery() {
 	}, []);
 
 	return (
-		<div>
+		<>
 			<Layout title={'Gallery'}>
 				<article className='controls'>
 					<nav className='btnSet' ref={refElBtnSet}>
@@ -116,6 +117,7 @@ export default function Gallery() {
 											<img src={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_w.jpg`} alt={`https://live.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}_b.jpg`} />
 										</div>
 										<h2>{pic.title}</h2>
+
 										<div className='profile'>
 											<img
 												src={`http://farm${pic.farm}.staticflickr.com/${pic.server}/buddyicons/${pic.owner}.jpg`}
@@ -132,11 +134,8 @@ export default function Gallery() {
 				</div>
 			</Layout>
 
-			<Modal>
-				<div className='con'>
-					<span>Close</span>
-				</div>
-			</Modal>
-		</div>
+			{/* 모달 호출시 출력유무를 결정하는 state값과 state변경함수를 Modal에 props로 전달 - 이유: 모달이 열고 닫는거는 부모가 아닌 자식 컴포넌트에 결정하게 하기 위함 */}
+			<Modal IsOpen={IsOpen} setIsOpen={setIsOpen}></Modal>
+		</>
 	);
 }
