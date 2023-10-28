@@ -16,9 +16,19 @@ export default function Modal({ IsOpen, setIsOpen, children }) {
 		<AnimatePresence>
 			{IsOpen && (
 				//{{jsx가 마운트되기 전상태의 스타일}}, {{jsx가 마운트 된 후 스타일}}, {{jsx가 앞으로 언마운트될때의 스타일}}, {{스타일이 변경될 때의 전환시간}}
-				<motion.aside className='modal' initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: '0%' }} exit={{ opacity: 0, x: '-100%' }} transition={{ duration: 0.5 }}>
-					<div className='con'>{children}</div>
-					<span onClick={() => setIsOpen(false)}>close</span>
+				<motion.aside
+					className='modal'
+					initial={{ opacity: 0, x: '100%', scale: 0.5 }}
+					animate={{ opacity: 1, x: '0%', scale: 1 }}
+					exit={{ opacity: 0, x: '-100%', scale: 1.5 }}
+					transition={{ duration: 0.5 }}
+				>
+					<motion.div className='con' initial={{ opactiy: 0 }} animate={{ opacity: 1, transition: { delay: 0.5 } }} exit={{ opacity: 0 }}>
+						{children}
+					</motion.div>
+					<motion.span onClick={() => setIsOpen(false)} initial={{ opacity: 0, x: 200 }} animate={{ opacity: 1, x: 0, transition: { delay: 0.8 } }} exit={{ opacity: 0, x: 200 }}>
+						close
+					</motion.span>
 				</motion.aside>
 			)}
 		</AnimatePresence>
