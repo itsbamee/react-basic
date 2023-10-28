@@ -7,6 +7,7 @@ import { LuSearch } from 'react-icons/lu';
 export default function Gallery() {
 	const [Pics, setPics] = useState([]);
 	const [IsUser, setIsUser] = useState(true);
+	let [CurrentType, setCurrentType] = useState('mine');
 	const refElBtnSet = useRef(null);
 	const myId = '199361154@N05';
 	const refElInput = useRef(null);
@@ -30,7 +31,12 @@ export default function Gallery() {
 
 		const data = await fetch(url);
 		const json = await data.json();
-		if (json.photos.photo.length === 0) return alert('해당 검색어의 결과값이 없습니다.');
+		if (json.photos.photo.length === 0) {
+			const [btnInterest, btnMine] = refElBtnSet.current.querySelectorAll('button');
+			CurrentType === 'interest' && btnInterest.classList.add('on');
+			CurrentType === 'mine' && btnMine.classList.add('on');
+			return alert('해당 검색어의 결과값이 없습니다.');
+		}
 		setPics(json.photos.photo);
 	};
 
@@ -45,6 +51,7 @@ export default function Gallery() {
 		setIsUser(false);
 		activateBtn(e);
 		fetchFlickr({ type: 'interest' });
+		setCurrentType('interest');
 	};
 
 	const handleClickMine = (e) => {
@@ -52,6 +59,7 @@ export default function Gallery() {
 		setIsUser(true);
 		activateBtn(e);
 		fetchFlickr({ type: 'user', id: myId });
+		setCurrentType('mine');
 	};
 
 	const handleClickUser = (e) => {
@@ -59,6 +67,7 @@ export default function Gallery() {
 		setIsUser(true);
 		activateBtn(e);
 		fetchFlickr({ type: 'user', id: e.target.innerText });
+		setCurrentType('user');
 	};
 
 	const handleSubmit = (e) => {
@@ -69,6 +78,7 @@ export default function Gallery() {
 		setIsUser('');
 		activateBtn(e);
 		fetchFlickr({ type: 'search', keyword: tags });
+		setCurrentType('search');
 	};
 
 	useEffect(() => {
