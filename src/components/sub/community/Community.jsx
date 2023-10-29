@@ -36,6 +36,7 @@ function Community() {
 		//Post.filter로 전달되는 삭제순번과 현재 반복되는 값의 순번이 같지가 않은 것만 배열로 반환 (삭제순번 값만 제외하고 반환하기 떄문에 결과적으로 삭제와 동일한 기능)
 		//삭제 순번글만 제외한 나머지 배열 값을 다시 setPosts로 기존 Posts값을 변경하면 컴포넌트가 재렌더링되면서 해당 글만 제외된 나머지 글만 출력
 		//해당 구문에서는 filter자체가 불변성을 유지하면서 새로운 배열을 리턴하기 때문에 굳이 전개연산자로 기존 state값을 복사할 (deep copy)할 필요가 없음 (= ..안쓰는 이유 전개연산자 안쓰는 이유 : 이미 복사된 값이기 때문에)
+		//아래 Posts.filter((post, idx) -> Posts.filter((_, idx) 변경되는 이유 -> 안쓰는 값임을 인지하기 위해 _로 치환
 		setPosts(Posts.filter((_, idx) => delIndex !== idx));
 	};
 
