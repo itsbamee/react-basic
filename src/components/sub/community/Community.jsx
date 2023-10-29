@@ -27,7 +27,15 @@ function Community() {
 			resetPost();
 			return alert('제목과 본문을 모두 입력하세요.');
 		}
-		setPosts([{ title: refInput.current.value, content: refTextarea.current.value }, ...Posts]);
+
+		//현재 시간값에서 getTime()을 호출하면 표준 시간값을 millisecond 단위의 숫자값으로 반환
+		//표준시 값에 한국 시간대가 9시간 빠르므로 9시가넹 대한 밀리세컨드 값을 더해줌(korTime)
+		//korTime : 한국시간대를 밀리세컨드로 반환한 값 (1초 * 60 = 1분, *60 = 1시간, 9 = 9시간)
+		const korTime = new Date().getTime() + 1000 * 60 * 60 * 9;
+
+		//new Date(한국 밀리세컨드 시간값) -> 한국 시간값을 기준으로 해서 시간객체값 반환
+
+		setPosts([{ title: refInput.current.value, content: refTextarea.current.value, date: new Date(korTime) }, ...Posts]);
 		resetPost();
 	};
 
