@@ -35,7 +35,14 @@ function Community() {
 
 		//new Date(한국 밀리세컨드 시간값) -> 한국 시간값을 기준으로 해서 시간객체값 반환
 
-		setPosts([{ title: refInput.current.value, content: refTextarea.current.value, date: new Date(korTime) }, ...Posts]);
+		setPosts([
+			{
+				title: refInput.current.value,
+				content: refTextarea.current.value,
+				date: new Date(korTime),
+			},
+			...Posts,
+		]);
 		resetPost();
 	};
 
@@ -57,7 +64,12 @@ function Community() {
 			<div className='wrap'>
 				<div className='inputBox'>
 					<input type='text' placeholder='Write Title' ref={refInput} />
-					<textarea cols='30' rows='5' placeholder='Write Content Message' ref={refTextarea}></textarea>
+					<textarea
+						cols='30'
+						rows='5'
+						placeholder='Write Content Message'
+						ref={refTextarea}
+					></textarea>
 
 					<nav>
 						<button onClick={resetPost}>
@@ -70,18 +82,27 @@ function Community() {
 				</div>
 
 				<div className='showBox'>
-					{Posts.map((post, idx) => (
-						<article key={idx}>
-							<div className='txt'>
-								<h2>{post.title}</h2>
-								<p>{post.content}</p>
-							</div>
-							<nav>
-								<button>Edit</button>
-								<button onClick={() => deletePost(idx)}>Delete</button>
-							</nav>
-						</article>
-					))}
+					{Posts.map((post, idx) => {
+						//현재시간값이 State에 옮겨담아지는 순간에는 객체값이고
+						//다음번 렌더링 싸이클에서 useEffect에 의해 문자로 변환된다음 로컬저장소에 저장됨
+						//날자값을 받는 첫번째 렌더링 타임에는 날짜값이 객체이므로 split구문에서 오류발생
+						//해결방법은 처음 렌더링을 도는 시점에서 날짜를 강제로 문자화한다음 출력처리
+						const stringDate = JSON.stringify(post.date);
+						const textedDate = stringDate.split('T')[0].split('"')[1].split('-').join('.');
+						return (
+							<article key={idx}>
+								<div className='txt'>
+									<h2>{post.title}</h2>
+									<p>{post.content}</p>
+									<span>{textedDate}</span>
+								</div>
+								<nav>
+									<button>Edit</button>
+									<button onClick={() => deletePost(idx)}>Delete</button>
+								</nav>
+							</article>
+						);
+					})}
 				</div>
 			</div>
 		</Layout>
