@@ -49,10 +49,13 @@
 			border-left: 1px solid #bbb;
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: space-between;
+			justify-content: flex-start;
+			//사이간격을 변수값으로 연결
+			gap: var(--boxGap);
 
 			article {
-				width: 32%;
+				//넓이 값 : (100% - 사이 간격 갯수 * 간격수치값) / 전체 컬럼 갯수
+				width: calc((100% - var(--boxGap) * (var(--countColumn) - 1)) / var(--countColumn));
 				height: 25vh;
 				background: lightyellow;
 				padding: 20px;
