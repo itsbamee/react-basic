@@ -56,10 +56,10 @@
 			article {
 				//넓이 값 : (100% - 사이 간격 갯수 * 간격수치값) / 전체 컬럼 갯수
 				width: calc((100% - var(--boxGap) * (var(--countColumn) - 1)) / var(--countColumn));
-				height: 25vh;
+				height: auto;
 				background: lightyellow;
 				padding: 20px;
-				margin-bottom: 20px;
+				// margin-bottom: 20px;
 				display: flex;
 				flex-wrap: wrap;
 				align-content: space-between;
@@ -75,7 +75,7 @@
 						margin-bottom: 20px;
 					}
 					p {
-						font: 1rem/1.4 'arial';
+						font: 0.8rem/1.4 'arial';
 						color: #777;
 						margin-bottom: 40px;
 					}
@@ -102,6 +102,55 @@
 							color: gray;
 						}
 					}
+				}
+			}
+		}
+	}
+}
+
+//laptop
+.laptop {
+	.community {
+		.wrap {
+			.showBox {
+				article {
+					width: calc((100% - var(--boxGap) * (var(--countColumn-2) - 1)) / var(--countColumn-2));
+				}
+			}
+		}
+	}
+}
+
+//tablet
+.tablet,
+.mobile {
+	.community {
+		.wrap {
+			.inputBox {
+				width: 100%;
+				padding-right: 0;
+				margin-bottom: 100px;
+			}
+			.showBox {
+				width: 100%;
+				border: none;
+				padding-left: 0;
+
+				article {
+					width: calc((100% - var(--boxGap) * (var(--countColumn-2) - 1)) / var(--countColumn-2));
+				}
+			}
+		}
+	}
+}
+
+// mobile
+.mobile {
+	.community {
+		.wrap {
+			.showBox {
+				article {
+					width: calc((100% - var(--boxGap) * (var(--countColumn-1) - 1)) / var(--countColumn-1));
 				}
 			}
 		}
