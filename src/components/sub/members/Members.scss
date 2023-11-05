@@ -71,6 +71,11 @@
 							border: none;
 						}
 					}
+					p {
+						font-size: 0.75rem;
+						color: var(--pointColor);
+						font-family: '돋움';
+					}
 					&:last-child {
 						td::after {
 							display: none;
