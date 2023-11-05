@@ -1,4 +1,5 @@
 :root {
+	--pointColor:hotpink;
 	--boxGap: 20px;
 	--countColumn: 3;
 	--countColumn-2: 2;
@@ -41,6 +42,15 @@ button {
 }
 fieldset {
 	border: none;
+}
+select{
+	color: var(--pointColor);
+}
+input,text{
+	&::placeholder{
+		font-size: 0.9rem;
+		color:var(--pointColor);
+	}
 }
 html {
 	&::-webkit-scrollbar {
