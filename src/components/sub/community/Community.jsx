@@ -45,7 +45,7 @@ function Community() {
 	};
 
 	const deletePost = (delIndex) => {
-		console.log(delIndex);
+		if (!window.confirm('정말 해당게시글을 삭제하시겠습니까?')) return;
 		setPosts(Posts.filter((_, idx) => delIndex !== idx));
 	};
 
