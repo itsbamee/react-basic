@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useSplitText } from '../../../hooks/useSplitText';
 import Layout from '../../common/layout/Layout';
 import './Members.scss';
 import { useState, useRef, useEffect } from 'react';
