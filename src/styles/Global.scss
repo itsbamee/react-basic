@@ -1,5 +1,5 @@
 :root {
-	--pointColor:hotpink;
+	--pointColor: orangered;
 	--boxGap: 20px;
 	--countColumn: 3;
 	--countColumn-2: 2;
@@ -43,13 +43,15 @@ button {
 fieldset {
 	border: none;
 }
-select{
+select {
 	color: var(--pointColor);
+	font-size: 1.2rem;
 }
-input,text{
-	&::placeholder{
-		font-size: 0.9rem;
-		color:var(--pointColor);
+input,
+text {
+	&::placeholder {
+		font-size: 1.2rem;
+		color: var(--pointColor);
 	}
 }
 html {
